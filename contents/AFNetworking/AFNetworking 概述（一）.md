@@ -91,7 +91,7 @@ AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[[
 
 在这一节中我们要分析一下在上面两个方法的调用栈，首先来看的是 `AFHTTPSessionManager` 的初始化方法 `- initWithBaseURL:`
 
-```objectivec
+```objectivec               
 - [AFHTTPSessionManager initWithBaseURL:]
 	- [AFHTTPSessionManager initWithBaseURL:sessionConfiguration:]
 		- [AFURLSessionManager initWithSessionConfiguration:]
@@ -100,7 +100,7 @@ AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[[
 			- [AFSecurityPolicy defaultPolicy] // 负责身份认证
 			- [AFNetworkReachabilityManager sharedManager] // 查看网络连接情况
 		- [AFHTTPRequestSerializer serializer] // 负责序列化请求
-		- [AFJSONResponseSerializer serializer] // 负责序列化响应
+		- [AFJSONResponseSerializer serializer] // 负责序列化响应        
 ```
 
 从这个初始化方法的调用栈，我们可以非常清晰地了解这个框架的结构：
@@ -111,7 +111,7 @@ AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[[
 
 初始化方法很好地揭示了 AFNetworking 整个框架的架构，接下来我们要通过分析另一个方法 `- GET:parameters:process:success:failure:` 的调用栈，看一下 HTTP 请求是如何发出的：
 
-```objectivec
+```objectivec         
 - [AFHTTPSessionManager GET:parameters:process:success:failure:]
 	- [AFHTTPSessionManager dataTaskWithHTTPMethod:parameters:uploadProgress:downloadProgress:success:failure:] // 返回 NSURLSessionDataTask #1
 		- [AFHTTPRequestSerializer requestWithMethod:URLString:parameters:error:] // 返回 NSMutableURLRequest
